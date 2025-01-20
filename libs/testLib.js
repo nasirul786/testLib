@@ -1,4 +1,4 @@
-libPrefix = "testLib";
+var libPrefix = "testLib";
 
 function sendRequest(url) {
   HTTP.get({
