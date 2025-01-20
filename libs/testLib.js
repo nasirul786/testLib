@@ -1,6 +1,6 @@
 libPrefix = "testLib";
 
-function try(url) {
+function sendRequest(url) {
   HTTP.get({
     url: url,
     success: libPrefix + 'onResponse'
@@ -14,7 +14,7 @@ function onResponse() {
 
 on(libPrefix + 'onResponse', onResponse);
 
-// Publish the try function to make it available for bots
+// Publish the sendRequest function to make it available for bots
 publish({
-  try: try
+  sendRequest: sendRequest
 });
