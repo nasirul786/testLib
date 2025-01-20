@@ -1,19 +1,20 @@
-function tryRequest(url) {
-  // Perform a GET request to the specified URL
-  var response = HTTP.get({
-    url: url,
-    timeout: 10 // timeout in seconds
-  });
+libPrefix = "testLib";
 
-  // Check if the request was successful
-  if (response.status_code === 200) {
-    return response.body; // Return the response text
-  } else {
-    return "Error: " + response.status_code + " - " + response.status_message;
-  }
+function try(url) {
+  HTTP.get({
+    url: url,
+    success: libPrefix + 'onResponse'
+  });
 }
 
-// Publish the function to make it available in bots
+function onResponse() {
+  // Automatically handles the response
+  Bot.sendMessage(content); // Sends the response content as a message
+}
+
+on(libPrefix + 'onResponse', onResponse);
+
+// Publish the try function to make it available for bots
 publish({
-  try: tryRequest
+  try: try
 });
