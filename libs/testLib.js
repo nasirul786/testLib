@@ -1,6 +1,10 @@
 var libPrefix = "testLib";
 
-function sendRequest(url) {
+// Store callback function
+var callbackFunction;
+
+function sendRequest(url, callback) {
+  callbackFunction = callback; // Save the callback
   HTTP.get({
     url: url,
     success: libPrefix + 'onResponse'
@@ -9,7 +13,12 @@ function sendRequest(url) {
 
 function onResponse() {
   // Automatically handles the response
-  return JSON.parse(content); // Sends the response content as a message
+  var jsonResponse = JSON.parse(content); // Parse the response JSON
+
+  // Call the callback function with the parsed JSON
+  if (typeof callbackFunction === "function") {
+    callbackFunction(jsonResponse);
+  }
 }
 
 on(libPrefix + 'onResponse', onResponse);
