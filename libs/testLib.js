@@ -9,7 +9,7 @@ function sendRequest(url) {
 
 function onResponse() {
   // Automatically handles the response
-  return content; // Sends the response content as a message
+  return content // Sends the response content as a message
 }
 
 on(libPrefix + 'onResponse', onResponse);
